@@ -1,0 +1,22 @@
+services:
+  nginx-lb:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "8080:80"
+    depends_on:
+      - app-v1
+      - app-v2
+
+  app-v1:
+    build: 
+      context: ./app_v1
+    expose:
+      - "5000"
+
+  app-v2:
+    build: 
+      context: ./app_v2
+    expose:
+      - "5001"
